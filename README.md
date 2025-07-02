@@ -6,14 +6,6 @@ A modular chatbot platform powered by **Claude (via AWS Bedrock)**, built using 
 
 ## 🧭 Architecture
 
-[ chat-ui ] ──► [ chat-api ]
-                    │
-      ┌─────────────┼────────────┐
-      ▼             ▼            ▼
-[ auth-service ] [ history ] [ claude-connector ]
-                                 │
-                                 ▼
-                  [ Claude via AWS Bedrock ]
 ---
 
 ## 📁 Project Structure
