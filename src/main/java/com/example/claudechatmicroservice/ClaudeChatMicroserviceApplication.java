@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ClaudeChatMicroserviceApplication {
 
     public static void main(String[] args) {
+
+        System.out.println("ClaudeChatMicroserviceApplication");
+
         SpringApplication.run(ClaudeChatMicroserviceApplication.class, args);
     }
 
