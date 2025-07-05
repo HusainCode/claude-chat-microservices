@@ -1,10 +1,12 @@
-package com.example.claudechatmicroservice.historyservice;
+package com.claudechat.historyservice;
 
-public class His {
+public class HistoryService {
+
+
     private String user;
     private String message;
 
-    public ChatHistory(String user, String message) {
+    public HistoryService(String user, String message) {
         this.user = user;
         this.message = message;
     }
@@ -27,9 +29,6 @@ public class His {
 
     @Override
     public String toString() {
-        return "ChatHistory{" +
-                "user='" + user + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+        return "HistoryService{" + "user='" + user + '\'' +  ", message='" + message + '\'' + '}';
     }
 }

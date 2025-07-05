@@ -1,13 +1,13 @@
-package com.example.claudechatmicroservice;
+package com.claudechat.authservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ClaudeChatMicroserviceApplicationTests {
+public class AuthServiceTest {
 
     @Test
     void contextLoads() {
-    }
 
+    }
 }
