@@ -10,6 +10,6 @@ public class ClaudeChatMicroserviceApplicationTests {
     @Test
     void contextLoads() {
 
-        
+
     }
 }
