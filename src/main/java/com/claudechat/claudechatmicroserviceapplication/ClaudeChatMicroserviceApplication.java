@@ -2,25 +2,31 @@ package com.claudechat.claudechatmicroserviceapplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-import java.util.Scanner;
 
 
 // the main entry  point
 
 @SpringBootApplication
-public class ClaudeChatMicroserviceApplication {
+public class ClaudeChatMicroserviceApplication extends Application {
 
-    public static void main(String[] args) {
+    private TextArea chatArea = new TextArea();
+    private TextField textField = new TextField();
 
-        Scanner scanner = new Scanner(System.in);
 
+    public static void main(String[] args) {SpringApplication.run(ClaudeChatMicroserviceApplication.class, args);
 
-        System.out.println("ClaudeChatMicroserviceApplication");
-
-        SpringApplication.run(ClaudeChatMicroserviceApplication.class, args);
     }
 
+    @Override
+    public void start(Stage stage){
+
+    }
 }
 
 
