@@ -6,8 +6,12 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
+import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
+import javafx.stage.Stage; // the main window for the app
+import java.io.File;  // Represents file paths, used with FileChoose
+import java.io.IOException; // Exception handling for file I/O operations
+import java.io.FileWriter; // Writes character data to files
 
 
 // the main entry  point
