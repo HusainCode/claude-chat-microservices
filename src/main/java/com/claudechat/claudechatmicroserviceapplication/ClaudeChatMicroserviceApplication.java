@@ -1,5 +1,6 @@
 package com.claudechat.claudechatmicroserviceapplication;
 
+import javafx.stage.FileChooser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javafx.application.Application;
@@ -32,6 +33,7 @@ public class ClaudeChatMicroserviceApplication extends Application {
         chatArea.setEditable(false); // makes the text area read only!
 
 
+
         textField.setOnAction(e -> {
 
             String message = textField.getText();
@@ -51,6 +53,17 @@ public class ClaudeChatMicroserviceApplication extends Application {
         stage.setTitle("Smart Chat");
         stage.show();
 
+    }
+
+
+    // Helper method
+    private void downloadTest(Stage stage){
+        Button downloadBtn = new Button("Download Chat Script"); // Download chat script
+
+        downloadBtn.setOnAction( event -> {
+            String chatScript = ""; // Empty till typing
+
+        });
 
 
     }
