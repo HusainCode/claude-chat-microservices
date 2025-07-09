@@ -41,14 +41,29 @@ public class ClaudeChatMicroserviceApplication extends Application {
         launch(args);
     }
 
+
+    // This is the entery point
     @Override
     public void start(Stage stage){
         chatArea.setEditable(false); // makes the text area read only!
         Button sendBtn = new Button("Send");
         Button downloadBtn = new Button("Download Chat Script"); // Download chat script
 
-        downloadBtn.setOnAction(e -> sendMessage(chatArea, textField));
 
+        // Event handlers
+        sendBtn.setOnAction(e -> sendMessage(chatArea, textField));
+        textField.setOnAction(e -> sendMessage()); // Enter key send message when clicked
+        downloadBtn.setOnAction(e -> downloadScript(stage));
+
+        // Build the layout
+        VBox root = new VBox(10, chatArea,textField,sendBtn,downloadBtn);
+
+
+        // Set up the scene
+        Scene scene = new Scene(root,400,300);
+        stage.setScene(scene);
+        stage.setTitle("Smart Chat");
+        stage.show();
 
 
         textField.setOnAction(e -> {
@@ -66,11 +81,7 @@ public class ClaudeChatMicroserviceApplication extends Application {
         });
 
 
-        VBox root = new VBox(10, chatArea, textField);
-        Scene scene = new Scene(root,400,300);
-        stage.setScene(scene);
-        stage.setTitle("Smart Chat");
-        stage.show();
+
 
     }
 
@@ -78,18 +89,26 @@ public class ClaudeChatMicroserviceApplication extends Application {
     private void sendMessage(TextArea chatArea, TextField textField){
         String text = textField.getText();
         if (!text.isEmpty()){
-            chatArea.appendText("Hello" + text + "\n");
+            chatArea.appendText("Hello" + text + "\n"); // append message
+            textField.clear(); // clear out the message
         }
     }
-    // Helper method
-    private void downloadTest(Stage stage){
 
+    private void downloadScript(Stage stage) throws IOException {
 
-        downloadBtn.setOnAction( event -> {
-            String chatScript = ""; // Empty till typing
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Chat Script");
+        fileChooser.setInitialFileName("Chat-script.txt"); // default name
 
-        });
-
+        File file = fileChooser.showSaveDialog(stage):
+        if ( file != null){
+            try (FileWriter writer = new FileWriter(file)){
+                writer.write(chatArea.getText()); // save chat tex
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
 
     }
 }
