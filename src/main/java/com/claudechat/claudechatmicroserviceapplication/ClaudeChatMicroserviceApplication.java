@@ -15,13 +15,26 @@ import java.io.IOException; // Exception handling for file I/O operations
 import java.io.FileWriter; // Writes character data to files
 
 
+
+/// Most important things for building a JavaFX GUI:
+///
+/// Stage: The main application window (Stage stage)
+///
+/// Scene: Holds all UI elements (Scene scene)
+///
+/// Layouts: Arrange controls (VBox, HBox, GridPane)
+///
+/// Controls: Buttons, TextFields, Labels, etc.
+///
+/// Events: Use .setOnAction for handling user actions
+///
 // the main entry  point
 
 @SpringBootApplication
 public class ClaudeChatMicroserviceApplication extends Application {
 
-    private TextArea chatArea = new TextArea();
-    private TextField textField = new TextField();
+    private final TextArea chatArea = new TextArea();
+    private final TextField textField = new TextField();
 
 
     public static void main(String[] args) {SpringApplication.run(ClaudeChatMicroserviceApplication.class, args);
@@ -31,6 +44,10 @@ public class ClaudeChatMicroserviceApplication extends Application {
     @Override
     public void start(Stage stage){
         chatArea.setEditable(false); // makes the text area read only!
+        Button sendBtn = new Button("Send");
+        Button downloadBtn = new Button("Download Chat Script"); // Download chat script
+
+        downloadBtn.setOnAction(e -> sendMessage(chatArea, textField));
 
 
 
@@ -41,8 +58,10 @@ public class ClaudeChatMicroserviceApplication extends Application {
             textField.clear();
 
             // TODO Call AWS Bedrock
-            String bedrockReesponse = "";
-            chatArea.appendText("ChatBoot" + bedrockReesponse + "\n");
+            String bedrockResponse = "";
+            chatArea.appendText("ChatBoot" + bedrockResponse + "\n");
+
+            stage.show();
 
         });
 
@@ -56,9 +75,15 @@ public class ClaudeChatMicroserviceApplication extends Application {
     }
 
 
+    private void sendMessage(TextArea chatArea, TextField textField){
+        String text = textField.getText();
+        if (!text.isEmpty()){
+            chatArea.appendText("Hello" + text + "\n");
+        }
+    }
     // Helper method
     private void downloadTest(Stage stage){
-        Button downloadBtn = new Button("Download Chat Script"); // Download chat script
+
 
         downloadBtn.setOnAction( event -> {
             String chatScript = ""; // Empty till typing
