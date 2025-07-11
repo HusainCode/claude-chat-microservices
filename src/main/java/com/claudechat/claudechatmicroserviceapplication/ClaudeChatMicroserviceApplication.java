@@ -7,110 +7,75 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.control.Button;
-import javafx.stage.Stage; // the main window for the app
-import java.io.File;  // Represents file paths, used with FileChoose
-import java.io.IOException; // Exception handling for file I/O operations
-import java.io.FileWriter; // Writes character data to files
-
-
-
-/// Most important things for building a JavaFX GUI:
-///
-/// Stage: The main application window (Stage stage)
-///
-/// Scene: Holds all UI elements (Scene scene)
-///
-/// Layouts: Arrange controls (VBox, HBox, GridPane)
-///
-/// Controls: Buttons, TextFields, Labels, etc.
-///
-/// Events: Use .setOnAction for handling user actions
-///
-// the main entry  point
+import javafx.stage.Stage;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 @SpringBootApplication
 public class ClaudeChatMicroserviceApplication extends Application {
 
     private final TextArea chatArea = new TextArea();
     private final TextField textField = new TextField();
+    private final TextField nameField = new TextField("Your Name");
 
-
-    public static void main(String[] args) {SpringApplication.run(ClaudeChatMicroserviceApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(ClaudeChatMicroserviceApplication.class, args);
         launch(args);
     }
 
-
-    // This is the entery point
+    // This is the entry point
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
         chatArea.setEditable(false); // makes the text area read only!
         Button sendBtn = new Button("Send");
-        Button downloadBtn = new Button("Download Chat Script"); // Download chat script
-
+        Button downloadBtn = new Button("Download Chat Script");
 
         // Event handlers
-        sendBtn.setOnAction(e -> sendMessage(chatArea, textField));
-        textField.setOnAction(e -> sendMessage()); // Enter key send message when clicked
-        downloadBtn.setOnAction(e -> downloadScript(stage));
+        sendBtn.setOnAction(e -> sendMessage());
+        textField.setOnAction(e -> sendMessage()); // Enter key sends message
+        downloadBtn.setOnAction(e -> {
+            try {
+                downloadScript(stage);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        // Build the layout
-        VBox root = new VBox(10, chatArea,textField,sendBtn,downloadBtn);
-
+        // Build the layout (add name field)
+        VBox root = new VBox(10, new Label("Name:"), nameField, chatArea, textField, sendBtn, downloadBtn);
 
         // Set up the scene
-        Scene scene = new Scene(root,400,300);
+        Scene scene = new Scene(root, 400, 350);
         stage.setScene(scene);
         stage.setTitle("Smart Chat");
         stage.show();
-
-
-        textField.setOnAction(e -> {
-
-            String message = textField.getText();
-            chatArea.appendText("Hi" + message);
-            textField.clear();
-
-            // TODO Call AWS Bedrock
-            String bedrockResponse = "";
-            chatArea.appendText("ChatBoot" + bedrockResponse + "\n");
-
-            stage.show();
-
-        });
-
-
-
-
     }
 
-
-    private void sendMessage(TextArea chatArea, TextField textField){
-        String text = textField.getText();
-        if (!text.isEmpty()){
-            chatArea.appendText("Hello" + text + "\n"); // append message
-            textField.clear(); // clear out the message
+    // Use the name from nameField in your chat
+    private void sendMessage() {
+        String userName = nameField.getText().trim();
+        String text = textField.getText().trim();
+        if (!text.isEmpty() && !userName.isEmpty()) {
+            chatArea.appendText(userName + ": " + text + "\n");
+            textField.clear();
+            // Fake AI response for now
+            chatArea.appendText("ChatBot: (reply here)\n");
         }
     }
 
     private void downloadScript(Stage stage) throws IOException {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Chat Script");
         fileChooser.setInitialFileName("Chat-script.txt"); // default name
 
-        File file = fileChooser.showSaveDialog(stage):
-        if ( file != null){
-            try (FileWriter writer = new FileWriter(file)){
-                writer.write(chatArea.getText()); // save chat tex
-            }
-            catch (IOException ex) {
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write(chatArea.getText()); // save chat text
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-
     }
 }
-
-
