@@ -33,6 +33,9 @@ dependencies {
     implementation "org.openjfx:javafx-controls:21"
     implementation "org.openjfx:javafx-fxml:21"
 
+    // AWS Bedrock SDK (runtime)
+    implementation 'software.amazon.awssdk:bedrockruntime:2.25.38'
+
     // Dev tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
