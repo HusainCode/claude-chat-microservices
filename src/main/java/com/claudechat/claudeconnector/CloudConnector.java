@@ -21,7 +21,7 @@ public class CloudConnector {
 
     private final BedrockRuntimeClient bedrockClient = BedrockRuntimeClient.create();
 
-    @PostMapping
+    @PostMapping // make this method response to HTTP post
     public String chatWithBot(@RequestBody String prompt){
 
         String modelId = "anthropic.claude-v2"; // Or another Bedrock model
